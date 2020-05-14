@@ -1,0 +1,48 @@
+import random
+import pymysql
+range_number = (1, 20)
+random_number = random.randint(*range_number)
+tries = 0
+guess = 0
+print("Guess a number between 1 to 20")
+while guess != 1:
+    try:
+        tries += 1
+        guess_number = int(input("Enter your number: "))
+        if guess_number < range_number[0] or guess_number > range_number[1]:
+            print("Out of range.")
+        elif guess_number == random_number:
+            print("That is the right number.")
+            break
+        elif guess_number < random_number:
+            print("Guess number is too low")
+        elif guess_number > random_number:
+            print("Guess number is too high")
+        else:
+            print("Only number is accepted")
+    except:
+        print("Error")
+
+print("You guess the right number after " + str(tries) + " times.")
+First_name = input("Enter your first name: ")
+Last_name = input("Enter your last name: ")
+print("Thanks you." + First_name + " " + Last_name)
+
+
+
+#create table
+#"CREATE TABLE Score( FirstName varchar(25), LastName varchar(25), Points int, Position int AUTO_INCREMENT,primary key(Position))"
+
+# Connect to mysql Database and store first_name, last-name, point and position
+con = pymysql.connect("localhost", "monju", "monjumamun1", "connection Python")
+cursor = con.cursor()
+
+add = """INSERT INTO Score (FirstName,LastName,Points)VALUES(%s,%s,%s)"""
+Pass_value = (First_name, Last_name, tries)
+try:
+    cursor.execute(add, Pass_value)
+    con.commit()
+except:
+    con.rollback()
+
+con.close()
