@@ -28,7 +28,7 @@ First_name = input("Enter your first name: ")
 Last_name = input("Enter your last name: ")
 print("Thanks you." + First_name + " " + Last_name)
 
-
+#i am here
 
 #create table
 #"CREATE TABLE Score( FirstName varchar(25), LastName varchar(25), Points int, Position int AUTO_INCREMENT,primary key(Position))"
